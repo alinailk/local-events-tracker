@@ -15,7 +15,10 @@ if (
     !isset($input['category'])
 ) {
     http_response_code(400);
-    echo json_encode(['error' => 'Eksik alanlar var']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Eksik alanlar var'
+    ]);
     exit;
 }
 
@@ -32,5 +35,8 @@ $stmt->execute([
     ':category' => $input['category']
 ]);
 
-echo json_encode(['message' => 'Etkinlik başarıyla eklendi']);
+echo json_encode([
+    'success' => true,
+    'data' => ['message' => 'Etkinlik başarıyla eklendi']
+]);
 ?>
