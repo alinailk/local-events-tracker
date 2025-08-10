@@ -6,7 +6,10 @@ require_once __DIR__ . '/../config/cors.php';
 // ID parametresi URL'den alınır.
 if (!isset($_GET['id'])) {
     http_response_code(400);
-    echo json_encode(['error' => 'Etkinlik ID belirtilmedi']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Etkinlik ID belirtilmedi'
+    ]);
     exit;
 }
 
@@ -18,9 +21,15 @@ $stmt->execute([':id' => $id]);
 $event = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($event) {
-    echo json_encode($event);
+    echo json_encode([
+        'success' => true,
+        'data' => $event
+    ]);
 } else {
     http_response_code(404);
-    echo json_encode(['error' => 'Etkinlik bulunamadı']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Etkinlik bulunamadı'
+    ]);
 }
 ?>
