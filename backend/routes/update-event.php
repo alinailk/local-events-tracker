@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/cors.php';
 
 // PUT isteğiyle gelen veriyi alır.
 $input = json_decode(file_get_contents('php://input'), true);

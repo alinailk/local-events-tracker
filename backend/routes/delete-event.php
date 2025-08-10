@@ -1,5 +1,6 @@
 <?php
-require_once '../config/db.php';
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/cors.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     // ID'yi URL'den alır.

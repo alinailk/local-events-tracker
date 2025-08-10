@@ -6,6 +6,9 @@ header('Content-Type: application/json');
 // Veritabanı bağlantısını çağırıyoruz.
 require_once __DIR__ . '/../config/db.php';
 
+// CORS dosyasını çağırıyoruz.
+require_once __DIR__ . '/../config/cors.php';
+
 // Etkinlikleri tarihe göre sıralayan SQL sorgusu.
 $sql = "SELECT * FROM events ORDER BY date ASC";
 
