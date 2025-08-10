@@ -16,7 +16,10 @@ if (
     !isset($input['category'])
 ) {
     http_response_code(400);
-    echo json_encode(['error' => 'Eksik veri gönderildi.']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Eksik veri gönderildi.'
+    ]);
     exit;
 }
 
@@ -46,12 +49,22 @@ try {
     ]);
 
     if ($stmt->rowCount() > 0) {
-        echo json_encode(['message' => 'Etkinlik başarıyla güncellendi.']);
+        echo json_encode([
+            'success' => true,
+            'data' => 'Etkinlik başarıyla güncellendi.'
+        ]);
     } else {
-        echo json_encode(['message' => 'Etkinlik bulunamadı veya değişiklik yapılmadı.']);
+        echo json_encode([
+            'success' => false,
+            'error' => 'Etkinlik bulunamadı veya değişiklik yapılmadı.'
+        ]);
     }
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Veritabanı hatası: ' . $e->getMessage()]);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Veritabanı hatası.',
+        'details' => $e->getMessage()
+    ]);
 }
 ?>
