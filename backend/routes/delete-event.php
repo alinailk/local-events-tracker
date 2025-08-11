@@ -17,13 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     }
 
     try {
-        $stmt = $pdo->prepare("DELETE FROM events WHERE id = :id");
+        // Soft delete: deleted_at alanını günceller.
+        $stmt = $pdo->prepare("UPDATE events SET deleted_at = NOW() WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             echo json_encode([
                 'success' => true,
-                'data' => 'Etkinlik başarıyla silindi.'
+                'data' => 'Etkinlik soft delete ile işaretlendi.'
             ]);
         } else {
             http_response_code(500);
