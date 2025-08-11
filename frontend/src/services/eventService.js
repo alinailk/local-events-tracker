@@ -38,3 +38,21 @@ export async function deleteEvent(id) {
         return { success: false, error: err.message };
     }
 }
+
+// Etkinlik güncelleme fonksiyonu.
+export async function updateEvent(id, data) {
+    try {
+        const payload = { ...data, id }; //  id'yi body'ye ekliyoruz
+
+        const res = await fetch(`${BASE_URL}/update-event.php`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        return await res.json();
+    } catch (err) {
+        console.error("Etkinlik güncelleme hatası:", err);
+        return { success: false, error: err.message };
+    }
+}

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { getEvents } from '../services/eventService';
 import EventCard from '../components/EventCard';
 import EventForm from '../components/EventForm';
+import UpdateModal from '../components/UpdateModal';
 import { FiPlus, FiX } from 'react-icons/fi';
 
 function HomePage() {
     const [events, setEvents] = useState([]);
     const [showForm, setShowForm] = useState(false);
+    const [editingEvent, setEditingEvent] = useState(null); // 👈 Yeni: düzenlenen etkinlik
 
     const fetchEvents = () => {
         getEvents().then(res => {
@@ -53,9 +55,23 @@ function HomePage() {
             {/* Etkinlik Listesi */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 {events.map(event => (
-                    <EventCard key={event.id} event={event} onDelete={fetchEvents} />
+                    <EventCard
+                        key={event.id}
+                        event={event}
+                        onDelete={fetchEvents}
+                        onEdit={setEditingEvent} // 👈 Yeni: düzenleme tetikleyicisi
+                    />
                 ))}
             </div>
+
+            {/* Güncelleme Modalı */}
+            {editingEvent && (
+                <UpdateModal
+                    event={editingEvent}
+                    onClose={() => setEditingEvent(null)}
+                    onUpdated={fetchEvents}
+                />
+            )}
         </div>
     );
 }

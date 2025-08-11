@@ -1,8 +1,8 @@
 import React from 'react';
 import { deleteEvent } from '../services/eventService';
-import { FiTrash2 } from 'react-icons/fi'; // Modern çöp kutusu ikonu
+import { FiTrash2, FiEdit } from 'react-icons/fi';
 
-function EventCard({ event, onDelete }) {
+function EventCard({ event, onDelete, onEdit }) {
     const handleDelete = async () => {
         const confirmed = window.confirm("Bu etkinliği silmek istediğine emin misin?");
         if (confirmed) {
@@ -17,14 +17,24 @@ function EventCard({ event, onDelete }) {
 
     return (
         <div className="relative bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-            {/* Sil Butonu - Modern ikon */}
-            <button
-                onClick={handleDelete}
-                className="absolute top-3 right-3 text-red-500 hover:text-red-700"
-                title="Sil"
-            >
-                <FiTrash2 size={18} />
-            </button>
+            {/* İkonlar: Sil + Düzenle yan yana */}
+            <div className="absolute top-3 right-3 flex gap-2">
+                <button
+                    onClick={handleDelete}
+                    className="text-red-500 hover:text-red-700"
+                    title="Sil"
+                >
+                    <FiTrash2 size={18} />
+                </button>
+
+                <button
+                    onClick={() => onEdit(event)}
+                    className="text-blue-500 hover:text-blue-700"
+                    title="Düzenle"
+                >
+                    <FiEdit size={18} />
+                </button>
+            </div>
 
             <h3 className="text-xl font-semibold text-blue-700 mb-2">{event.title}</h3>
             <p className="text-gray-700 text-sm mb-2">{event.description}</p>
