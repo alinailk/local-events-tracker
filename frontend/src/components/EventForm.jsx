@@ -16,14 +16,28 @@ function EventForm({ onEventCreated }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
+
+        // Basit validasyon
+        if (!form.title || !form.location || !form.date || !form.category || !form.description) {
+            alert("Lütfen tüm alanları eksiksiz doldurun!");
+            return;
+        }
+
+        const today = new Date().toISOString().split("T")[0];
+        if (form.date < today) {
+            alert("Etkinlik tarihi geçmiş bir tarih olamaz!");
+            return;
+        }
+
         const res = await createEvent(form);
         if (res.success) {
-            onEventCreated(); // Listeyi güncellemek için
-            setForm({ title: '', description: '', date: '', location: '', category: '' });
+            onEventCreated();
+            setForm({ title: '', location: '', date: '', category: '', description: '' });
         } else {
-            alert("Hata: " + res.error);
+            alert("Kayıt hatası: " + res.error);
         }
     };
+
 
     return (
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">

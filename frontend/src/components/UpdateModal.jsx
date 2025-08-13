@@ -28,6 +28,18 @@ function UpdateModal({ event, onClose, onUpdated }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
+
+        if (!form.title || !form.location || !form.date || !form.category || !form.description) {
+            alert("Lütfen tüm alanları eksiksiz doldurun!");
+            return;
+        }
+
+        const today = new Date().toISOString().split("T")[0];
+        if (form.date < today) {
+            alert("Etkinlik tarihi geçmiş bir tarih olamaz!");
+            return;
+        }
+
         const res = await updateEvent(event.id, form);
         if (res.success) {
             onUpdated();
@@ -36,6 +48,7 @@ function UpdateModal({ event, onClose, onUpdated }) {
             alert("Güncelleme hatası: " + res.error);
         }
     };
+
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
