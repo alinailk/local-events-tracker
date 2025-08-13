@@ -10,6 +10,19 @@ function UpdateModal({ event, onClose, onUpdated }) {
         category: ''
     });
 
+    const categoryOptions = [
+        "Eğlence",
+        "Eğitim",
+        "Teknik",
+        "Yazılım",
+        "Teknoloji",
+        "Sanat",
+        "Spor",
+        "Kültür",
+        "Müzik",
+        "Diğer"
+    ];
+
     useEffect(() => {
         if (event) {
             setForm({
@@ -49,7 +62,6 @@ function UpdateModal({ event, onClose, onUpdated }) {
         }
     };
 
-
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg w-full max-w-lg shadow-lg relative">
@@ -59,7 +71,21 @@ function UpdateModal({ event, onClose, onUpdated }) {
                     <input name="title" value={form.title} onChange={handleChange} placeholder="Başlık" className="w-full border p-2 rounded" required />
                     <input name="location" value={form.location} onChange={handleChange} placeholder="Konum" className="w-full border p-2 rounded" required />
                     <input name="date" value={form.date} onChange={handleChange} type="date" className="w-full border p-2 rounded" required />
-                    <input name="category" value={form.category} onChange={handleChange} placeholder="Kategori" className="w-full border p-2 rounded" required />
+
+                    {/* Kategori Select */}
+                    <select
+                        name="category"
+                        value={form.category}
+                        onChange={handleChange}
+                        className="w-full border p-2 rounded"
+                        required
+                    >
+                        <option value="" disabled>Kategori Seçin</option>
+                        {categoryOptions.map((cat, i) => (
+                            <option key={i} value={cat}>{cat}</option>
+                        ))}
+                    </select>
+
                     <textarea name="description" value={form.description} onChange={handleChange} placeholder="Açıklama" className="w-full border p-2 rounded" required />
                     <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Güncelle</button>
                 </form>

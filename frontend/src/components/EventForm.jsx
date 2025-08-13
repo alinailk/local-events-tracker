@@ -10,6 +10,19 @@ function EventForm({ onEventCreated }) {
         category: ''
     });
 
+    const categoryOptions = [
+        "Eğlence",
+        "Eğitim",
+        "Teknik",
+        "Yazılım",
+        "Teknoloji",
+        "Sanat",
+        "Spor",
+        "Kültür",
+        "Müzik",
+        "Diğer"
+    ];
+
     const handleChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -38,7 +51,6 @@ function EventForm({ onEventCreated }) {
         }
     };
 
-
     return (
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md mb-6">
             <h2 className="text-xl font-bold mb-4 text-blue-700">Yeni Etkinlik Ekle</h2>
@@ -46,8 +58,22 @@ function EventForm({ onEventCreated }) {
                 <input name="title" value={form.title} onChange={handleChange} placeholder="Başlık" className="border p-2 rounded" required />
                 <input name="location" value={form.location} onChange={handleChange} placeholder="Konum" className="border p-2 rounded" required />
                 <input name="date" value={form.date} onChange={handleChange} type="date" className="border p-2 rounded" required />
-                <input name="category" value={form.category} onChange={handleChange} placeholder="Kategori" className="border p-2 rounded" required />
+
+                {/* Kategori Select */}
+                <select
+                    name="category"
+                    value={form.category}
+                    onChange={handleChange}
+                    className="border p-2 rounded"
+                    required
+                >
+                    <option value="" disabled>Kategori Seçin</option>
+                    {categoryOptions.map((cat, i) => (
+                        <option key={i} value={cat}>{cat}</option>
+                    ))}
+                </select>
             </div>
+
             <textarea name="description" value={form.description} onChange={handleChange} placeholder="Açıklama" className="border p-2 rounded w-full mt-4" required />
             <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded mt-4 hover:bg-blue-700 transition">Ekle</button>
         </form>
