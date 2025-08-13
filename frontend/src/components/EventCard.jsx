@@ -16,9 +16,8 @@ function EventCard({ event, onDelete, onEdit }) {
     };
 
     return (
-        <div className="relative bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-            {/* İkonlar: Sil + Düzenle yan yana */}
-            <div className="absolute top-3 right-3 flex gap-2">
+        <div className="relative bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition group">
+            <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <button
                     onClick={handleDelete}
                     className="text-red-500 hover:text-red-700"
