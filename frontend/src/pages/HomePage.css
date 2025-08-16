@@ -1,0 +1,13 @@
+body {
+  background: linear-gradient(to right, #eef2f3, #ffffff);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.page-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding: 32px;
+  margin-top: 40px;
+  transition: all 0.3s ease;
+}
